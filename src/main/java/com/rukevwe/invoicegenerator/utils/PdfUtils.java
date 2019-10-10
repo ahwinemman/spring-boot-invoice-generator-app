@@ -1,4 +1,4 @@
-package com.rukevwe.invoicegenerator.business.utils;
+package com.rukevwe.invoicegenerator.utils;
 
 import com.lowagie.text.DocumentException;
 import org.slf4j.Logger;
