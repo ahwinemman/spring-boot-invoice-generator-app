@@ -40,9 +40,8 @@ public class CsvStreamParser implements IStreamParser {
     private static int PROJECT_INDEX = 2;
     private static int START_TIME_INDEX = 4;
     private static int END_TIME_INDEX = 5;
-
-    private static List<Company> cachedCompanyDetails;
-    private static Map<String, Double> companyNamesAndTotalAmounts = new HashMap<>();
+    
+    private static Map<String, Company> companyNameMapping;
 
     private static Map<Integer, List<InvoiceItem>> invoiceItemList;
 
@@ -60,7 +59,7 @@ public class CsvStreamParser implements IStreamParser {
     public List<CompanyResult> parseCsv(MultipartFile csvFile) throws IOException, ParseException {
 
         List<CompanyResult> companyResultList = new ArrayList<>();
-        Map<String, Company> companyNameMapping = new HashMap<>();
+        companyNameMapping = new HashMap<>();
         InputStreamReader input = new InputStreamReader(csvFile.getInputStream());
         CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().parse(input);
         for (CSVRecord csvRecord : csvParser) {
@@ -103,7 +102,8 @@ public class CsvStreamParser implements IStreamParser {
             company.getInvoiceItemList().add(invoiceItem);
             companyMappings.put(companyName, company);
         } else {
-            Company company = new Company(companyName);
+            Company company = new Company();
+            company.setName(companyName);
             company.getInvoiceItemList().add(invoiceItem);
             companyMappings.put(companyName, company);
         }
@@ -131,7 +131,7 @@ public class CsvStreamParser implements IStreamParser {
     @Override
     public void createPdfInvoices() {
         Map<String, List<InvoiceItem>> mappings = new HashMap<>();
-        cachedCompanyDetails.forEach(company ->
+        companyNameMapping.forEach((id, company) ->
                 mappings.put(company.getName(), company.getInvoiceItemList())
         );
         StringBuilder content = new StringBuilder();

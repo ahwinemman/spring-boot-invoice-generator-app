@@ -14,9 +14,6 @@ public class Company {
     private String name;
     private List<InvoiceItem> invoiceItemList = new ArrayList<>();
     
-    public Company(String name) {
-        this.name = name;
-    }
     
     public Double getTotalAmount() {
         Double totalAmount = 0.0;

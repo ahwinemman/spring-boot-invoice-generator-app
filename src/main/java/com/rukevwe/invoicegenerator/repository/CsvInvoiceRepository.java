@@ -16,6 +16,9 @@ public class CsvInvoiceRepository implements InvoiceRepository {
     
     @Override
     public void saveCompanies(String id, Company company) {
+        if (cachedStore != null || !cachedStore.isEmpty()) {
+            cachedStore.clear();
+        }
         cachedStore.put(id, company);
     }
 
