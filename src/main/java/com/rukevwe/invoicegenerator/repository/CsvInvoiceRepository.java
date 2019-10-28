@@ -1,5 +1,6 @@
 package com.rukevwe.invoicegenerator.repository;
 
+import com.rukevwe.invoicegenerator.business.NotFoundException;
 import com.rukevwe.invoicegenerator.model.Company;
 import com.rukevwe.invoicegenerator.model.InvoiceItem;
 import org.springframework.stereotype.Component;
@@ -16,21 +17,24 @@ public class CsvInvoiceRepository implements InvoiceRepository {
     
     @Override
     public void saveCompanies(String id, Company company) {
-        if (cachedStore != null || !cachedStore.isEmpty()) {
-            cachedStore.clear();
-        }
+        company.setId(id);
         cachedStore.put(id, company);
     }
 
     @Override
-    public List<InvoiceItem> findByInvoiceId(String id) {
+    public Company findByInvoiceId(String id) {
         Company company = cachedStore.get(id);
         List<InvoiceItem> invoiceItemList = new ArrayList<>();
-        if (company != null) {
-            company.getInvoiceItemList().forEach(invoiceItem -> {
-                invoiceItemList.add(invoiceItem);
-            });
+        if (company == null) {
+            throw new NotFoundException("Invoice Id not found " +  id );
         }
-        return invoiceItemList;
+        return company;
+    }
+    
+    @Override
+    public void clearCachedCompanies() {
+        if (cachedStore != null || !cachedStore.isEmpty()) {
+            cachedStore.clear();
+        }
     }
 }

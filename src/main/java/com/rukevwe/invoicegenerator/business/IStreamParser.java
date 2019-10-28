@@ -1,7 +1,7 @@
-package com.rukevwe.invoicegenerator.business.api;
+package com.rukevwe.invoicegenerator.business;
 
+import com.rukevwe.invoicegenerator.model.Company;
 import com.rukevwe.invoicegenerator.model.CompanyResult;
-import com.rukevwe.invoicegenerator.model.InvoiceItem;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ public interface IStreamParser {
 
     public List<String> getPdfs();
     
-    public List<InvoiceItem> getCompanyInvoiceItems(String invoiceId);
+    public Company getCompany(String invoiceId);
 
     void createPdfInvoices();
 }

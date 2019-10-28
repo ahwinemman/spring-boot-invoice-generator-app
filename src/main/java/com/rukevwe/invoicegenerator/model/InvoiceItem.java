@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InvoiceItem {
-    private String name;
     private String employeeId;
     private double numberOfHours;
     private int unitPrice;

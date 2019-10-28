@@ -1,9 +1,6 @@
 package com.rukevwe.invoicegenerator.repository;
 
 import com.rukevwe.invoicegenerator.model.Company;
-import com.rukevwe.invoicegenerator.model.InvoiceItem;
-
-import java.util.List;
 
 public interface InvoiceRepository {
 
@@ -21,5 +18,11 @@ public interface InvoiceRepository {
      * @param id String ID generated for the parse.
      * @return company Company model containing all the entries associated with a company
      */
-    List<InvoiceItem> findByInvoiceId(String id);
+    Company findByInvoiceId(String id);
+
+
+    /**
+     * Clears the cached list of companies
+     */
+    void clearCachedCompanies();
 }
