@@ -1,9 +1,9 @@
 package com.rukevwe.invoicegenerator.business.service;
 
 
-import com.rukevwe.invoicegenerator.business.api.IStreamParser;
+import com.rukevwe.invoicegenerator.business.IStreamParser;
+import com.rukevwe.invoicegenerator.model.Company;
 import com.rukevwe.invoicegenerator.model.CompanyResult;
-import com.rukevwe.invoicegenerator.model.InvoiceItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class InvoiceService {
         return iStreamParser.parseCsv(csvFile);
     }
     
-    public List<InvoiceItem> getCompanyInvoiceItems(String invoiceId) {
-        return iStreamParser.getCompanyInvoiceItems(invoiceId);
+    public Company getCompanyInvoiceItems(String invoiceId) {
+        return iStreamParser.getCompany(invoiceId);
     }
     
     public List<String> getPdfs() {

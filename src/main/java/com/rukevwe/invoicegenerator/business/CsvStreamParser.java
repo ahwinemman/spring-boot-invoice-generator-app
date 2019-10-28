@@ -1,4 +1,4 @@
-package com.rukevwe.invoicegenerator.business.api;
+package com.rukevwe.invoicegenerator.business;
 
 import com.rukevwe.invoicegenerator.model.Company;
 import com.rukevwe.invoicegenerator.model.CompanyResult;
@@ -74,11 +74,13 @@ public class CsvStreamParser implements IStreamParser {
             }
             double cost = InvoiceUtils.calculateCost(numberOfHours, billableRate);
 
-            InvoiceItem invoiceItem = buildInvoiceItem(companyName, employeeId, numberOfHours, billableRate, cost);
+            InvoiceItem invoiceItem = buildInvoiceItem(employeeId, numberOfHours, billableRate, cost);
 
             companyNameMapping = buildCompanyPojo(companyNameMapping, companyName, invoiceItem);
         }
 
+        invoiceRepository.clearCachedCompanies();
+        
         companyNameMapping.forEach((name, company) -> {
             String companyId = UUID.randomUUID().toString();
             invoiceRepository.saveCompanies(companyId, company);
@@ -90,7 +92,7 @@ public class CsvStreamParser implements IStreamParser {
     }
 
     @Override
-    public List<InvoiceItem> getCompanyInvoiceItems(String invoiceId) {
+    public Company getCompany(String invoiceId) {
         return invoiceRepository.findByInvoiceId(invoiceId);
     }
 
@@ -110,9 +112,8 @@ public class CsvStreamParser implements IStreamParser {
         return companyMappings;
     }
 
-    private InvoiceItem buildInvoiceItem(String companyName, String employeeId, double numberOfHours, int billableRate, double cost) {
+    private InvoiceItem buildInvoiceItem(String employeeId, double numberOfHours, int billableRate, double cost) {
         InvoiceItem invoiceItem = new InvoiceItem();
-        invoiceItem.setName(companyName);
         invoiceItem.setEmployeeId(employeeId);
         invoiceItem.setNumberOfHours(numberOfHours);
         invoiceItem.setUnitPrice(billableRate);
