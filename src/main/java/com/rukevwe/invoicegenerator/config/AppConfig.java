@@ -16,8 +16,7 @@ public class AppConfig {
         properties.setProperty("output.encoding", "UTF-8");
         properties.setProperty("resource.loader", "class");
         properties.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        VelocityEngine velocityEngine = new VelocityEngine(properties);
-        return velocityEngine;
+        return new VelocityEngine(properties);
     }
 
 }
