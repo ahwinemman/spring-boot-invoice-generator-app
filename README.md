@@ -20,3 +20,6 @@ java -jar target/invoice-generator.jar
 ```
 
 The server will be listening on "http://localhost:9090"
+
+The project also has a jacoco plugin in its pom.xml allowing one to check things like code coverage with sonarqube.
+* This is a very helpful tutorial as regards sonarqube: https://springbootdev.com/category/sonarqube/
