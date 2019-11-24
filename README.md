@@ -16,7 +16,7 @@ mvn clean package
 ```
 Then, to run the project's build jar file, run the following command:
 ```shell script
-java -jar target/csvservice.jar
+java -jar target/invoice-generator.jar
 ```
 
 The server will be listening on "http://localhost:9090"
