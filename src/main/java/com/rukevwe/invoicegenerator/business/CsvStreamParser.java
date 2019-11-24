@@ -43,8 +43,6 @@ public class CsvStreamParser implements IStreamParser {
     
     private static Map<String, Company> companyNameMapping;
 
-    private static Map<Integer, List<InvoiceItem>> invoiceItemList;
-
     List<String> fileNames = new ArrayList<>();
 
     private static final Logger logger = LoggerFactory.getLogger(CsvStreamParser.class);
