@@ -5,4 +5,3 @@ USER spring:spring
 ARG JAR_FILE=target/invoice-generator.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
-EXPOSE 8090
